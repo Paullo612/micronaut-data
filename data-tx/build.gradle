@@ -1,4 +1,5 @@
 plugins {
+    id "org.jetbrains.kotlin.jvm"
     id "io.micronaut.build.internal.data-module"
 }
 
@@ -8,12 +9,16 @@ dependencies {
     implementation "io.micronaut:micronaut-aop"
     compileOnly "io.micronaut.spring:micronaut-spring"
     api 'jakarta.transaction:jakarta.transaction-api:1.3.3'
+    implementation 'io.micronaut.reactor:micronaut-reactor'
 
     // optional dependencies
     compileOnly "io.micronaut.sql:micronaut-jdbc"
     compileOnly "org.springframework:spring-jdbc:$springVersion"
     compileOnly "io.micronaut.test:micronaut-test-core"
     compileOnly "io.micronaut:micronaut-core-reactive"
+
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-core"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor project(":data-processor")
@@ -26,4 +31,16 @@ dependencies {
     testRuntimeOnly "com.h2database:h2"
     testRuntimeOnly "io.micronaut.sql:micronaut-jdbc-tomcat"
 
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
